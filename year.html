@@ -36,6 +36,7 @@
 					<h2>the boots image of the day!</h2>
 					<p><i>read all about it</i></p>
 					
+					<img id="daily" class="image" >
 					<!-- <img id="daily" class="image" src = "background.JPG"> -->
 				</div>
 				<script>
@@ -55,21 +56,21 @@
 
   					//make sure to serialize your JSON body
   					body: JSON.stringify({
-    			  						file: `${month}/${day}/`
+    			  						file: `year/06/14/20210614182321.jpg`
   					})
 					})
 					.then( response => response.json())
 					.then(result => {
 
 						const dailyboot = document.getElementById("imagediv");
-						const img = document.createElement("img");
+						const img = document.getElementById("daily");
 						img.class = "image";
-						img.id = "daily";
+						// img.id = "daily";
 						// const text = document.createElement("p")
 						// text.textContent = result.urlimg
 						img.src = result.urlimg;
 						// console.log(response.json()["urlimg"])
-						dailyboot.appendChild(img);
+						// dailyboot.appendChild(img);
 
 					});
 					</script>

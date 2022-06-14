@@ -53,14 +53,13 @@ Ruby, [y]our love has taught me so much about the world. it has showed me freedo
 				<div id="imagediv" class="center">
 					<h2>the boots image of the day!</h2>
 					<h3 id="titleimage"><i>read all about it</i></h3>
-					<img id="daily" class="image" >
+					<!-- <img id="daily" class="image" > -->
 				</div>
 				<script>
 					const today = new Date();
 					// console.log(today)
 					const day = ('0'+today.getDate()).slice(-2)
 					const month = ('0'+(today.getMonth()+1)).slice(-2)
-					console.log(day)
 					fetch("https://lfwkeeqn91.execute-api.us-east-1.amazonaws.com/semiprod/daily/", {
   				method: "POST",
   				// mode: "cors",
@@ -72,23 +71,23 @@ Ruby, [y]our love has taught me so much about the world. it has showed me freedo
 
   				//make sure to serialize your JSON body
   				body: JSON.stringify({
-    				file:`year/${month}/${day}/daily.jpg`
-    									// file: "test1.png"
+    				// file:`${month}/${day}/daily.png`
+    									file: "test1.png"
   				})
 				})
 				.then( response => response.json())
 				.then(result => {
 					console.log(result)
 					const dailyboot = document.getElementById("imagediv");
-					const img = document.getElementById("daily");
-					// img.class = "image";
+					const img = document.createElement("img");
+					img.class = "image";
 					// const text = document.createElement("p")
 					// text.textContent = result.urlimg
-					// img.id = "daily"; 
+					img.id = "daily"
 					img.src = result.urlimg;
 
 					// console.log(response.json()["urlimg"])
-					// dailyboot.appendChild(img);
+					dailyboot.appendChild(img);
 
 				});
 				</script>
