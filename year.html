@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+	<head>
+<meta charset="utf-8">
+<meta name="description" content="a love site">
+<!-- hey ruby, you will never see this, but you are the most beautiful human being i will ever meet -->
+<title>oh so boots dot com</title>
+<link rel="icon" href="favicon.ico">
+<link rel="stylesheet" href="index.css">
+	</head>
+	<body>
+		<div class="main">
+			<div class="page">
+				<div>
+					<h1 class="heading"><pre>  ____
+  \  _|__
+ __)|   /
+(___|  (__
+    (_-___)</pre><p>OHSOBOOTS</p>
+            	<pre>  ____
+  \  _|__
+ __)|   /
+(___|  (__
+    (_-___)</pre></h1>
+				</div>
+				<div class="topnav">
+  				<a href="index.html">home</a>
+  				<a class="active" href="year.html">1year<i>ago</i></a>
+  				<a href="archive.html">archive</a>
+  				<a href="about.html">about & future</a>
+  				<a href="vows.html">vows</a>
+				</div>
+				<h2>welcome, boot</h2>
+								<hr>
+				<div id="imagediv" class="center">
+					<h2>the boots image of the day!</h2>
+					<p><i>read all about it</i></p>
+					
+					<!-- <img id="daily" class="image" src = "background.JPG"> -->
+				</div>
+				<script>
+					const today = new Date();
+				// console.log(today)
+					const day = ('0'+today.getDate()).slice(-2)
+					const month = ('0'+(today.getMonth()+1)).slice(-2)
+
+					fetch("https://lfwkeeqn91.execute-api.us-east-1.amazonaws.com/semiprod/daily/", {
+  					method: "POST",
+  					// mode: "cors",
+  					// credentials: "include",
+  					headers: {
+    					// 'Accept': 'application/json',
+    					'Content-Type': 'application/json'
+  					},
+
+  					//make sure to serialize your JSON body
+  					body: JSON.stringify({
+    			  						file: `${month}/${day}/`
+  					})
+					})
+					.then( response => response.json())
+					.then(result => {
+
+						const dailyboot = document.getElementById("imagediv");
+						const img = document.createElement("img");
+						img.class = "image";
+						img.id = "daily";
+						// const text = document.createElement("p")
+						// text.textContent = result.urlimg
+						img.src = result.urlimg;
+						// console.log(response.json()["urlimg"])
+						dailyboot.appendChild(img);
+
+					});
+					</script>
+							</div>
+			<pre>      .-'\
+   .-'  `/\
+.-'      `/\
+\         `/\
+ \         `/\
+  \    _-   `/\       _.--.
+   \    _-   `/`-..--\     )
+    \    _-   `,','  /    ,')
+     `-_   -   ` -- ~   ,','
+      `-              ,','
+       \,--.    ____==-~
+        \   \_-~\
+         `_-~_.-'
+          \-~
+</pre>
+	
+		</div>
+	</body>
+</html> 
