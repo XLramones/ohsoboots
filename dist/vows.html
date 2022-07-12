@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+	<head>
+//<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+//<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+<meta charset="utf-8">
+<meta name="description" content="a love site">
+<!-- hey ruby, you will never see this, but you are the most beautiful human being i will ever meet -->
+<title>oh so boots dot com</title>
+<link rel="icon" href="favicon.ico">
+<link rel="stylesheet" href="index.css">
+	</head>
+	<body>
+		<div class="main">
+			<div class="page">
+				<div>
+<h1 class="heading"><pre>  ____
+  \  _|__
+ __)|   /
+(___|  (__
+    (_-___)</pre><p>OHSOBOOTS</p>
+            	<pre>  ____
+  \  _|__
+ __)|   /
+(___|  (__
+    (_-___)</pre></h1>
+				</div>
+				<div class="topnav">
+  				<a href="index.html">home</a>
+  				<a href="year.html">1year<i>ago</i></a>
+  				<a href="archive.html">archive</a>
+  				<a href="about.html">about & future</a>
+  				<a class="active "href="vows.html">vows</a>
+				</div>
+				<h2>welcome, boot</h2>
+				<div class="content">
+					<form id="add-cafe-form">
+                <input type="text" name="text" placeholder="vow text">
+                <input type="text" name="from" placeholder="from: ">
+                <button>Add Vow</button>
+            </form>
+					<ul id="vowlist"></ul>
+				</div>
+				<script type="module">
+  				// Import the functions you need from the SDKs you need
+  				import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.3/firebase-app.js";
+  				import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.8.3/firebase-analytics.js";
+  				// TODO: Add SDKs for Firebase products that you want to use
+  				// https://firebase.google.com/docs/web/setup#available-libraries
+
+  				// Your web app's Firebase configuration
+  				// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  				const firebaseConfig = {
+    				apiKey: "AIzaSyDVP4hI4wqFx3eZWtIu5JmeokAJVXO7FNc",
+    				authDomain: "boots-e2c8f.firebaseapp.com",
+    				projectId: "boots-e2c8f",
+    				storageBucket: "boots-e2c8f.appspot.com",
+    				messagingSenderId: "177440831465",
+    				appId: "1:177440831465:web:088a5cecb5acd850e23d78",
+    				measurementId: "G-R2BK9HKNR6"
+  				};
+
+  				// Initialize Firebase
+  				firebase.initializeApp(firebaseConfig);
+  				const db = firebase.firestore();
+  				db.settings({ timestampsInSnapshots: true})
+  				const vowList = document.querySelector('#vowlist')
+
+					function renderVows(doc){
+  					let li = document.createElement('li');
+  					let text = document.createElement('span');
+  					let from = document.createElement('span');
+
+  					li.setAttribute('data-id', doc.id);
+  					text.textContent = doc.data().text;
+  					from.textContent = doc.data().from;
+  					
+  					li.appendChild(text);
+  					li.appendChild(from);
+
+  					vowList.appendChild(li);
+					}
+					db.collection("vows").get().then((querySnapshot) => {
+    					querySnapshot.forEach((doc) => {
+        					renderVows(doc);
+        					// var vowList = document.getElementById("vowlist");
+        					// var divow = document.createElement("div");
+        					// divow.classList.add("vow")
+        					// var words = document.createElement("blockquote");
+        					// words.textContent = doc.data().text;
+        					// var by = document.createElement("i");
+        					// by.textContent = doc.data().from;
+        					// divow.appendChild(words);
+        					// divow.appendChild(by);
+        					// vowList.appendChild(divow);
+
+        					// console.log(`${doc.id} => ${doc.data()}`);
+    					});
+					});
+					
+					const form = document.querySelector('#add-cafe-form');
+					form.addEventListener('submit', (e) => {
+    			e.preventDefault();
+    			db.collection('vows').add({
+        			text: form.text.value,
+        			from: form.from.value
+    			});
+    			form.text.value = '';
+    			form.from.value = '';
+			});
+				</script>
+				<!-- <script src="app.js"></script> -->
+											</div>
+			<pre>      .-'\
+   .-'  `/\
+.-'      `/\
+\         `/\
+ \         `/\
+  \    _-   `/\       _.--.
+   \    _-   `/`-..--\     )
+    \    _-   `,','  /    ,')
+     `-_   -   ` -- ~   ,','
+      `-              ,','
+       \,--.    ____==-~
+        \   \_-~\
+         `_-~_.-'
+          \-~
+</pre>
+	
+		</div>
+	</body>
+</html>
