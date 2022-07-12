@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+	<head>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+<meta charset="utf-8">
+<meta name="description" content="a love site">
+<!-- hey ruby, you will never see this, but you are the most beautiful human being i will ever meet -->
+<title>oh so boots dot com</title>
+<link rel="icon" href="favicon.ico">
+<link rel="stylesheet" href="index.css">
+<!-- <script src= "index.js"> -->
+<!---->
+<!-- </script> -->
+	</head>
+	<body>
+		<div class="main">
+			<div class="page">
+				<div>
+					<h1 class="heading"><pre>  ____
+  \  _|__
+ __)|   /
+(___|  (__
+    (_-___)</pre><p>OHSOBOOTS</p>
+            	<pre>  ____
+  \  _|__
+ __)|   /
+(___|  (__
+    (_-___)</pre></h1>
+				</div>
+				<div class="topnav">
+  				<a class="active" href="index.html">home</a>
+  				<a href="year.html">1year<i>ago</i></a>
+  				<a href="archive.html">archive</a>
+  				<a href="about.html">about & future</a>
+  				<a href="vows.html">vows</a>
+				</div>
+				<h2>welcome, boot</h2>
+				<p>love is a journey, and oh my god have we journied. during the genisis of our relationship, it was quiet aparant to both of us that this wasnt usual love.
+this wasnt the love that we witnessed others experince, nor was it a love that either of us had tasted before.
+this was the type of love that penetrated the fabric of spce and time, the type to make you quetion your self for another,
+the type to mkae you promise 'no matter what'. 'no matter what' is something i think about every day.
+no matter what, we said, we will always try. come the worst time in our lives or even a day of love and happiness, we will always try.
+we will try to learn, change and work together to be better people for each other.
+this promise we made struck me becuase through this i learnt that love is not just a feeling, its a way of life.
+its a way of life that demands patientice, respect, empathy and accountability while it spits apon judgement, the ego and pride.
+it is through this life style and practise that we learn so much about another as well as about oneself.
+it is through this life style and practise that we share such precious connection and intimacy, untouchable by the outside world.
+it is through this life style and practise of love that we can wake up and experince the same feeling we did x days ago.
+love is no destination or a goal, love is a journey and we are its little explorers. and it just us, nobody else could fill those roles. its just us, forever.
+Ruby, [y]our love has taught me so much about the world. it has showed me freedom, peace, pain, divinity, but most importantly it has shown me you.</p>
+				<hr>
+				<div id="imagediv" class="center">
+					<h2>the boots image of the day!</h2>
+					<h3 id="titleimage"><i>read all about it</i></h3>
+					<img id="daily" class="image" >
+				</div>
+				<script>
+					const today = new Date();
+					// console.log(today)
+					const day = ('0'+today.getDate()).slice(-2)
+					const month = ('0'+(today.getMonth()+1)).slice(-2)
+					console.log(day)
+					fetch("https://lfwkeeqn91.execute-api.us-east-1.amazonaws.com/semiprod/daily/", {
+  				method: "POST",
+  				// mode: "cors",
+  				// credentials: "include",
+  				headers: {
+    				// 'Accept': 'application/json',
+    				'Content-Type': 'application/json'
+  				},
+
+  				//make sure to serialize your JSON body
+  				body: JSON.stringify({
+    				file:`year/${month}/${day}/daily.jpg`
+    									// file: "test1.png"
+  				})
+				})
+				.then( response => response.json())
+				.then(result => {
+					console.log(result)
+					const dailyboot = document.getElementById("imagediv");
+					const img = document.getElementById("daily");
+					// img.class = "image";
+					// const text = document.createElement("p")
+					// text.textContent = result.urlimg
+					// img.id = "daily"; 
+					img.src = result.urlimg;
+
+					// console.log(response.json()["urlimg"])
+					// dailyboot.appendChild(img);
+
+				});
+				</script>
+				<script type="module">
+  				// Import the functions you need from the SDKs you need
+  				import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.3/firebase-app.js";
+  				import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.8.3/firebase-analytics.js";
+  				// TODO: Add SDKs for Firebase products that you want to use
+  				// https://firebase.google.com/docs/web/setup#available-libraries
+
+  				// Your web app's Firebase configuration
+  				// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  				const firebaseConfig = {
+    				apiKey: "AIzaSyDVP4hI4wqFx3eZWtIu5JmeokAJVXO7FNc",
+    				authDomain: "boots-e2c8f.firebaseapp.com",
+    				projectId: "boots-e2c8f",
+    				storageBucket: "boots-e2c8f.appspot.com",
+    				messagingSenderId: "177440831465",
+    				appId: "1:177440831465:web:088a5cecb5acd850e23d78",
+    				measurementId: "G-R2BK9HKNR6"
+  				};
+
+  				// Initialize Firebase
+  				firebase.initializeApp(firebaseConfig);
+  				const db = firebase.firestore();
+  				db.settings({ timestampsInSnapshots: true})
+  				const vowList = document.querySelector('#vowlist')
+
+					function renderVows(doc){
+  					let li = document.createElement('li');
+  					let text = document.createElement('span');
+  					let from = document.createElement('span');
+
+  					li.setAttribute('data-id', doc.id);
+  					text.textContent = doc.data().text;
+  					from.textContent = doc.data().from;
+  					
+  					li.appendChild(text);
+  					li.appendChild(from);
+
+  					vowList.appendChild(li);
+					}
+					db.collection("imagetext").get().then((querySnapshot) => {
+    					querySnapshot.forEach((doc) => {
+										if (doc.id == month){
+										  for (const key in doc.data())  {
+										  	if (key == day) {
+										  		const dailyboot = document.getElementById("imagediv")
+										  		const head = document.getElementById("titleimage");
+													head.textContent = doc.data()[key].title
+													const cap = document.createElement("p")
+													cap.textContent = doc.data()[key].cap
+													dailyboot.appendChild(cap)
+													
+										  	}
+										  }
+										  
+										}
+        					// console.log(`${doc.id} => ${doc.data()}`);
+    					});
+					});
+					
+					</script>
+
+							<div>
+					<h2>sweet links!</h2>
+					<ul>
+						<li><a href="http://cdsportal.u-strasbg.fr/?target=LEDA%201101630">a star with the closest coordinates to our birthdays that i could find</a></li>
+						<li><a href="">boots ascii art</a></li>
+						<li><a href="">our night sky</a></li>
+					</ul>
+				</div>
+			</div>
+			<pre>      .-'\
+   .-'  `/\
+.-'      `/\
+\         `/\
+ \         `/\
+  \    _-   `/\       _.--.
+   \    _-   `/`-..--\     )
+    \    _-   `,','  /    ,')
+     `-_   -   ` -- ~   ,','
+      `-              ,','
+       \,--.    ____==-~
+        \   \_-~\
+         `_-~_.-'
+          \-~
+</pre>
+	
+		</div>
+	</body>
+</html> 
